@@ -52,7 +52,7 @@ const handleLanguageChange = (e) => {
     <div className="editor-wrapper">
       <header className="editor-header">
         <div className="editor-title">
-          <span role="img" aria-label="spark">💻</span> CodeLens — Collaborative Editor
+           CodeLive — Collaborative Editor
         </div>
         <div className="room-id">
           Room ID: <code>{roomId}</code>

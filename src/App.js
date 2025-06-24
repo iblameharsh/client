@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="home-container">
       <div className="home-card">
-        <h1 className="home-title">CodeLens – Real-Time Code Sharing</h1>
+        <h1 className="home-title">CodeLive - Real-Time Code Sharing</h1>
         <button className="create-btn" onClick={createNewSession}>
           ➕ Create New Session
         </button>
