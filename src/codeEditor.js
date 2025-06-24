@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import Editor from '@monaco-editor/react';
 import './CodeEditor.css';
 
-const socket = io('http://localhost:5000');
+const socket = io(process.env.REACT_APP_BACKEND_URL);
 
 const languageOptions = {
   javascript: '// Start typing JavaScript code...',
