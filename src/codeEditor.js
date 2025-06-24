@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import Editor from '@monaco-editor/react';
 import './CodeEditor.css';
 
-const socket = io(process.env.REACT_APP_BACKEND_URL);
+const socket = io('https://codelive-server.onrender.com/');
 
 const languageOptions = {
   javascript: '// Start typing JavaScript code...',
