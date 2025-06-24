@@ -6,28 +6,47 @@ import './CodeEditor.css';
 
 const socket = io('http://localhost:5000');
 
+const languageOptions = {
+  javascript: '// Start typing JavaScript code...',
+  python: '# Start typing Python code...',
+  cpp: '// Start typing C++ code...',
+  java: '// Start typing Java code...',
+};
+
 const CodeEditor = () => {
   const { id: roomId } = useParams();
-  const [code, setCode] = useState('// Start typing JavaScript code...');
+  const [language, setLanguage] = useState('javascript');
+  const [code, setCode] = useState(languageOptions['javascript']);
 
-  useEffect(() => {
-    socket.emit('join', roomId);
+useEffect(() => {
+  socket.emit('join', roomId);
 
-    socket.on('code-change', (newCode) => {
-      if (newCode !== code) {
-        setCode(newCode);
-      }
-    });
+  const handleCodeChange = ({ code: newCode, language: lang }) => {
+    setCode(newCode);
+    setLanguage(lang);
+  };
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [roomId, code]);
+  socket.on('code-change', handleCodeChange);
+
+  return () => {
+    socket.off('code-change', handleCodeChange); // Proper cleanup
+    socket.disconnect();
+  };
+}, [roomId]);
+
 
   const handleEditorChange = (value) => {
-    setCode(value);
-    socket.emit('code-change', { roomId, code: value });
-  };
+  setCode(value);
+  socket.emit('code-change', { roomId, code: value, language });
+};
+
+const handleLanguageChange = (e) => {
+  const newLang = e.target.value;
+  const starterCode = languageOptions[newLang] || '';
+  setLanguage(newLang);
+  setCode(starterCode);
+  socket.emit('code-change', { roomId, code: starterCode, language: newLang });
+};
 
   return (
     <div className="editor-wrapper">
@@ -35,13 +54,25 @@ const CodeEditor = () => {
         <div className="editor-title">
           <span role="img" aria-label="spark">💻</span> CodeLens — Collaborative Editor
         </div>
-        <div className="room-id">Room ID: <code>{roomId}</code></div>
+        <div className="room-id">
+          Room ID: <code>{roomId}</code>
+        </div>
       </header>
+
+      <div className="editor-controls">
+        <label htmlFor="language-select">Language:</label>
+        <select id="language-select" value={language} onChange={handleLanguageChange}>
+          <option value="javascript">JavaScript</option>
+          <option value="python">Python</option>
+          <option value="cpp">C++</option>
+          <option value="java">Java</option>
+        </select>
+      </div>
 
       <div className="monaco-editor-container">
         <Editor
           height="80vh"
-          defaultLanguage="javascript"
+          language={language}
           theme="vs-dark"
           value={code}
           onChange={handleEditorChange}

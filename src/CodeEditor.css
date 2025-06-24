@@ -42,3 +42,21 @@ body {
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
+.editor-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: #1b263b;
+  color: white;
+}
+
+#language-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #0d1b2a;
+  color: white;
+  border: 1px solid #3c5b6f;
+  font-size: 0.95rem;
+}
+
