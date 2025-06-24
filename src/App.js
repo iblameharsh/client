@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import './App.css';
 
 function App() {
   const [inputId, setInputId] = useState('');
@@ -19,25 +20,25 @@ function App() {
   };
 
   return (
-    <div className="container mt-5 text-center">
-      <h1 className="mb-4">CodeLens – Real-Time Code Sharing</h1>
-
-      <button className="btn btn-primary mb-4" onClick={createNewSession}>
-        ➕ Create New Session
-      </button>
-
-      <form onSubmit={joinSession} className="d-flex justify-content-center">
-        <input
-          type="text"
-          className="form-control w-50 me-2"
-          placeholder="Enter Session ID"
-          value={inputId}
-          onChange={(e) => setInputId(e.target.value)}
-        />
-        <button className="btn btn-success" type="submit">
-          🔗 Join
+    <div className="home-container">
+      <div className="home-card">
+        <h1 className="home-title">CodeLens – Real-Time Code Sharing</h1>
+        <button className="create-btn" onClick={createNewSession}>
+          ➕ Create New Session
         </button>
-      </form>
+        <form onSubmit={joinSession} className="join-section">
+          <input
+            type="text"
+            className="session-input"
+            placeholder="Enter Session ID"
+            value={inputId}
+            onChange={(e) => setInputId(e.target.value)}
+          />
+          <button className="join-btn" type="submit">
+            🔗 Join
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
