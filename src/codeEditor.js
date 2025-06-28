@@ -77,6 +77,11 @@ const handleExitSession = () => {
         </div>
         <div className="room-id">
           Room ID: <code>{roomId}</code>
+        <button
+            onClick={() => navigator.clipboard.writeText(roomId)}
+            className='copy-btn'>
+            Copy
+        </button>
         </div>
       </header>
 

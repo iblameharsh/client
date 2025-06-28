@@ -76,4 +76,14 @@ body {
   background-color: #d9363e;
 }
 
+.copy-btn{
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-left: 4px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
