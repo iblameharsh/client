@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Editor from '@monaco-editor/react';
 import './CodeEditor.css';
@@ -48,11 +48,22 @@ const handleLanguageChange = (e) => {
   socket.emit('code-change', { roomId, code: starterCode, language: newLang });
 };
 
+const navigate = useNavigate();
+const handleExitSession = () => {
+  socket.emit('leave', roomId); 
+  socket.disconnect(); 
+  navigate('/home'); 
+};
+
+
   return (
     <div className="editor-wrapper">
       <header className="editor-header">
         <div className="editor-title">
            CodeLive — Collaborative Editor
+        </div>
+        <div>
+          <button className="exit-button" onClick={handleExitSession}>Exit Session</button>
         </div>
         <div className="room-id">
           Room ID: <code>{roomId}</code>

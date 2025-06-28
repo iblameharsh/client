@@ -52,7 +52,7 @@
   background-color: #0ea5e9;
 }
 
-h2 {
+h2,.signup-heading {
   color: #d8dde4; /* lighter gray-blue for contrast */
   font-size: 28px;
   font-weight: 600;

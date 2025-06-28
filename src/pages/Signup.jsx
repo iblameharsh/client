@@ -53,7 +53,7 @@ const Signup = () => {
         {error && <p className="error-text">{error}</p>}
         {showLogin && (
           <p style={{ marginTop: '10px' }}>
-            Don’t have an account?{' '}
+            Don't have an account?{' '}
             <button
               type="button"
               onClick={() => setShowLogin(false)}
