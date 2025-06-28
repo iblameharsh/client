@@ -28,9 +28,15 @@ useEffect(() => {
 
   socket.on('code-change', handleCodeChange);
 
-  return () => {
-    socket.off('code-change', handleCodeChange); // Proper cleanup
+  const handleUnload = () => {
+    socket.emit('leave', roomId);
     socket.disconnect();
+  };
+  window.addEventListener('beforeunload', handleUnload);
+
+  return () => {
+    socket.off('code-change', handleCodeChange);
+    window.removeEventListener('beforeunload', handleUnload);
   };
 }, [roomId]);
 
@@ -56,7 +62,6 @@ const handleLanguageChange = (e) => {
 const navigate = useNavigate();
 const handleExitSession = () => {
   socket.emit('leave', roomId); 
-  socket.disconnect(); 
   navigate('/home'); 
 };
 
