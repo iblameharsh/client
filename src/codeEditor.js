@@ -42,7 +42,12 @@ useEffect(() => {
 
 const handleLanguageChange = (e) => {
   const newLang = e.target.value;
-  const starterCode = languageOptions[newLang] || '';
+  let starterCode=code;
+
+  if(starterCode === languageOptions[language]) {
+    starterCode = languageOptions[newLang] || '';
+  }
+
   setLanguage(newLang);
   setCode(starterCode);
   socket.emit('code-change', { roomId, code: starterCode, language: newLang });
